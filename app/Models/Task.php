@@ -11,15 +11,18 @@ class Task extends Model
 {
     // store timestamps in Unix format
     protected $dateFormat = 'U';
-    protected $hidden = ['id', 'user_id', 'updated_at'];
+    protected $hidden = ['id', 'user_id', 'task_state_id', 'updated_at'];
+    protected $appends = ['state'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function state()
+    // accessor : $task->state
+    public function getStateAttribute()
     {
-        return $this->belongsTo(TaskState::class, 'task_state_id');
+        return $this->belongsTo(TaskState::class, 'task_state_id')->first();
     }
+
 }
