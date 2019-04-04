@@ -22,4 +22,5 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/account', 'AccountController@index');
 
     Route::resource('tasks', 'TaskController');
+    Route::get('/tasks/list/{action}', 'TaskController@index');
 });

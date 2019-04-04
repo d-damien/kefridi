@@ -19,7 +19,7 @@ class TaskController extends Controller
             $tasks = $tasks->where('task_state_id', $states[$action]);
         }
 
-        $statusCode = count($tasks) ? 200 : 204;
+        $statusCode = 200;
 
         return compact('tasks', 'statusCode');
     }

@@ -20,7 +20,7 @@ class TaskController extends ApiTaskController
         $statusCode = $res['statusCode'];
 
         return response()->view(
-            'tasks.index'.($action ? '.'.$action : ''),
+            'tasks.index',
             compact('tasks', 'action'),
             $statusCode);
     }
