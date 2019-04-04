@@ -30,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes(function($router) {
             $router->forPersonalAccessTokens();
         });
+
+        Gate::define('task', function($user, $task) {
+            return $user->id == $task->user_id;
+        });
     }
 }

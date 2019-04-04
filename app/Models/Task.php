@@ -11,8 +11,9 @@ class Task extends Model
 {
     // store timestamps in Unix format
     protected $dateFormat = 'U';
-    protected $hidden = ['id', 'user_id', 'task_state_id', 'updated_at'];
+    protected $hidden = ['user_id', 'task_state_id', 'updated_at'];
     protected $appends = ['state'];
+    protected $fillable = ['user_id', 'task_state_id', 'title', 'detail', 'link'];
 
     public function user()
     {
