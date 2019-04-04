@@ -44,6 +44,9 @@ class TaskController extends ApiTaskController
     public function store(Request $request)
     {
         $res = parent::store($request);
+        if ($res->getStatusCode() == 507)
+            return view('errors.507');
+
         return redirect('/tasks');
     }
 

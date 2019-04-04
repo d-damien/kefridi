@@ -44,7 +44,7 @@ class TaskController extends Controller
      */
     public function store(Request $req)
     {
-        if ($req->user()->tasks->whereIn('task_state_id', [1, 2])->count() >= 50)
+        if ($req->user()->tasks->whereIn('task_state_id', [1, 2])->count() >= env('APP_MAX_TASKS'))
             return response()->json(['error' => 'Max tasks count reached'], 507);
 
         $req->validate([
