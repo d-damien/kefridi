@@ -12,13 +12,7 @@ use App\Models\TaskState;
 
 class TaskController extends Controller
 {
-    /**
-     * List user tasks
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($action = null)
-    {
+    protected function retrieve($action = null) {
         $tasks = Auth::user()->tasks;
         if ($action) {
             $states = ['todo' => 1, 'ongoing' => 2, 'done' => 3];
@@ -27,7 +21,19 @@ class TaskController extends Controller
 
         $statusCode = count($tasks) ? 200 : 204;
 
-        return response()->json($tasks, $statusCode);
+        return compact('tasks', 'statusCode');
+    }
+
+    /**
+     * List user tasks
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index($action = null)
+    {
+        $res = $this->retrieve($action);
+
+        return response()->json($res['tasks'], $res['statusCode']);
     }
 
     /**

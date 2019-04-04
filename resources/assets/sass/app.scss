@@ -7,3 +7,16 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.task-todo {
+  @extend .panel-warning;
+}
+
+.task-ongoing {
+  @extend .panel-info;
+}
+
+.task-done {
+  @extend .panel-success;
+}

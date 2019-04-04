@@ -26,4 +26,14 @@ class Task extends Model
         return $this->belongsTo(TaskState::class, 'task_state_id')->first();
     }
 
+    public function relevantDate() {
+        $stateToDate = [
+            1 => $this->created_at,
+            2 => $this->started_at,
+            3 => $this->ended_at
+        ];
+
+        return $stateToDate[$this->state->id];
+    }
+
 }

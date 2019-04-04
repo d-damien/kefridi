@@ -17,5 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/account', 'AccountController@index');
+Route::middleware('auth:web')->group(function() {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/account', 'AccountController@index');
+
+    Route::resource('tasks', 'TaskController');
+});
