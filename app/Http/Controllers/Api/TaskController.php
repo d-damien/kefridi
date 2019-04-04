@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTask;
 use App\Models\Task;
+use App\Models\TaskState;
 
 class TaskController extends Controller
 {
@@ -16,9 +17,14 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($action = null)
     {
         $tasks = Auth::user()->tasks;
+        if ($action) {
+            $states = ['todo' => 1, 'ongoing' => 2, 'done' => 3];
+            $tasks = $tasks->where('task_state_id', $states[$action]);
+        }
+
         $statusCode = count($tasks) ? 200 : 204;
 
         return response()->json($tasks, $statusCode);

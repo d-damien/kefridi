@@ -20,6 +20,7 @@ Route::middleware('auth:api')->group(function() {
     });
 
     Route::apiResource('tasks', 'Api\TaskController');
+    Route::get('/tasks/list/{action}', 'Api\TaskController@index');
     Route::patch('/tasks/{task}/start', 'Api\TaskController@start');
     Route::patch('/tasks/{task}/end', 'Api\TaskController@end');
 });
