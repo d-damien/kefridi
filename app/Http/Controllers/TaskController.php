@@ -32,7 +32,7 @@ class TaskController extends ApiTaskController
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -43,7 +43,8 @@ class TaskController extends ApiTaskController
      */
     public function store(Request $request)
     {
-        //
+        $res = parent::store($request);
+        return redirect('/tasks');
     }
 
     /**

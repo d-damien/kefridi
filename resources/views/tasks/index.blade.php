@@ -3,6 +3,8 @@
 @section('content')
 <div class="container">
 
+    <a href="/tasks/create" class="btn">@lang('Add task')</a>
+
     <ul class="nav nav-tabs">
         <li class=""><a href="/tasks">@lang('All')</a></li>
         <li class=""><a href="/tasks/list/todo">@lang('To do')</a></li>
