@@ -12,11 +12,11 @@
 
     <form action="/tasks" method="POST"> 
         {{ csrf_field() }}
-        <input name="title" type="text" maxlength="255" required />
+        <input value="{{ old('title', $task->title) }}" name="title" type="text" maxlength="255" required />
         <br />
-        <textarea name="detail" type="text" maxlength="255" required></textarea>
+        <textarea name="detail" type="text" maxlength="255" required>{{ old('detail', $task->detail) }}</textarea>
         <br />
-        <input name="link" type="url" />
+        <input value="{{ old('link', $task->link) }}" name="link" type="url" />
         <br />
 
         <input type="submit" />

@@ -58,7 +58,15 @@ class TaskController extends ApiTaskController
      */
     public function show($id)
     {
-        //
+        $res = parent::show($id);
+        if ($res->getStatusCode() == 404)
+            return abort(404);
+        $task = json_decode($res->getContent());
+
+        return response()->view(
+            'tasks.create',
+            compact('task'),
+            200);
     }
 
     /**

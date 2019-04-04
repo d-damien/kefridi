@@ -77,7 +77,7 @@ class TaskController extends Controller
         if (Gate::denies('task', $task))
             return response()->json([], 404);
 
-        return $task; // HTTP 200 par défaut
+        return response()->json($task, 200);
     }
 
     /**
