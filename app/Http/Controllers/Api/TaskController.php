@@ -117,4 +117,38 @@ class TaskController extends Controller
 
         return [];
     }
+
+
+    // API non-CRUD
+
+    /**
+     * Start task. Change status & started_at.
+     */
+    public function start($id)
+    {
+        $task = Task::find($id);
+        if (Gate::denies('task', $task))
+            return response()->json([], 404);
+
+        if ($task->state->id != 1)
+            return response()->json(['error' => 'State is not "To do"'], 422);
+
+        $task->task_state_id = 2;
+        $task->started_at = time();
+        $task->save();
+    }
+
+    public function end($id) {
+        $task = Task::find($id);
+        if (Gate::denies('task', $task))
+            return response()->json([], 404);
+
+        if ($task->state->id != 2)
+            return response()->json(['error' => 'State is not "Ongoing"'], 422);
+
+        $task->task_state_id = 3;
+        $task->ended_at = time();
+        $task->save();
+    }
+
 }
