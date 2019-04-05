@@ -61,11 +61,13 @@ class TaskController extends ApiTaskController
         $res = parent::show($id);
         if ($res->getStatusCode() == 404)
             return abort(404);
+
         $task = json_decode($res->getContent());
+        $editing = true;
 
         return response()->view(
             'tasks.create',
-            compact('task'),
+            compact('task', 'editing'),
             200);
     }
 
@@ -77,7 +79,7 @@ class TaskController extends ApiTaskController
      */
     public function edit($id)
     {
-        //
+        return $this->show($id);
     }
 
     /**
@@ -89,7 +91,12 @@ class TaskController extends ApiTaskController
      */
     public function update(Request $request, $id)
     {
-        //
+        $res = parent::update($request, $id);
+        $statusCode = $res->getStatusCode();
+        if (in_array($statusCode, [422, 404]))
+            abort($statusCode);
+
+        return redirect('/tasks');
     }
 
     /**

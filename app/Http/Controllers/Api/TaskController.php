@@ -106,7 +106,7 @@ class TaskController extends Controller
         $task->link = $req->has('link') ? $req->link : $task->link;
         $task->save();
 
-        return [];
+        return response()->json([], 200);
     }
 
     /**
