@@ -146,7 +146,7 @@ class TaskController extends Controller
             return response()->json(['error' => 'State is not "To do"'], 422);
 
         $task->task_state_id = 2;
-        $task->started_at = time();
+        $task->started_at = now();
         $task->save();
 
         return response()->json([], 200);
@@ -161,7 +161,7 @@ class TaskController extends Controller
             return response()->json(['error' => 'State is not "Ongoing"'], 422);
 
         $task->task_state_id = 3;
-        $task->ended_at = time();
+        $task->ended_at = now();
         $task->save();
 
         return response()->json([], 200);
