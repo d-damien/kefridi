@@ -18,13 +18,18 @@
                 <strong>{{ $task->title }}</strong>
                 <em>{{ $task->relevantDate() }}</em>
                 <div class="pull-right">
-                    <a href="/tasks/{{ $task->id }}">@lang('Edit')</a>
-                    <!-- form & jeton permettent d'éviter les failles CSRF -->
-                    <form action="/tasks/{{ $task->id }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <input type="submit" class="btn" value="@lang('Delete')" />
-                    </form>
+                    @if ($task->task_state_id != 3)
+                        <a href="/tasks/{{ $task->id }}">@lang('Edit')</a>
+                    @endif
+
+                    @if ($task->task_state_id != 2)
+                        <!-- form & jeton permettent d'éviter les failles CSRF -->
+                        <form action="/tasks/{{ $task->id }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <input type="submit" class="btn" value="@lang('Delete')" />
+                        </form>
+                    @endif
                 </div>
             </div>
 
