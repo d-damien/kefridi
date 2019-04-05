@@ -15,12 +15,15 @@
     @foreach ($tasks as $task)
         <div class="panel task-{{ $task->state->name }}">
             <div class="panel-heading">
-                <strong>{{ $task->title }}</strong>
+                @if ($task->task_state_id == 3)
+                    <strong>{{ $task->title }}</strong>
+                @else
+                    <a href="/tasks/{{ $task->id }}">
+                        <strong>{{ $task->title }}</strong>
+                    </a>
+                @endif
                 <em>{{ $task->relevantDate() }}</em>
                 <div class="pull-right">
-                    @if ($task->task_state_id != 3)
-                        <a href="/tasks/{{ $task->id }}">@lang('Edit')</a>
-                    @endif
 
                     @if ($task->task_state_id != 2)
                         <!-- form & jeton permettent d'éviter les failles CSRF -->
