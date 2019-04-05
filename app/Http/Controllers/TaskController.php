@@ -9,6 +9,20 @@ use App\Http\Controllers\Api\TaskController as ApiTaskController;
 class TaskController extends ApiTaskController
 {
     /**
+     * Common error gestion to call parent API
+     * @param string $functionName probably __FUNCTION__
+     * @param $arg transfer argument to parent
+     * @param int $statusCode to compare return with
+     */
+    protected function handleApiErrors($functionName, $arg, $expectedCode) {
+        $res = parent::$functionName($arg);
+        if ($res->getStatusCode() != $expectedCode)
+            return abort($res->getStatusCode());
+
+        return $res;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -48,9 +62,7 @@ class TaskController extends ApiTaskController
      */
     public function store(Request $request)
     {
-        $res = parent::store($request);
-        if ($res->getStatusCode() == 507)
-            return view('errors.507');
+        $this->handleApiErrors('store', $request, 201);
 
         return redirect('/tasks');
     }
@@ -63,9 +75,7 @@ class TaskController extends ApiTaskController
      */
     public function show($id)
     {
-        $res = parent::show($id);
-        if ($res->getStatusCode() == 404)
-            return abort(404);
+        $res = $this->handleApiErrors('show', $id, 200);
 
         $task = json_decode($res->getContent());
         $editing = true;
@@ -112,29 +122,20 @@ class TaskController extends ApiTaskController
      */
     public function destroy($id)
     {
-        $res = parent::destroy($id);
-        $statusCode = $res->getStatusCode();
-        if (in_array($statusCode, [422, 404]))
-            abort($statusCode);
+        $this->handleApiErrors('destroy', $id, 200);
 
         return redirect('/tasks');
     }
 
     public function start($id)
     {
-        $res = parent::start($id);
-        $statusCode = $res->getStatusCode();
-        if (in_array($statusCode, [422, 404]))
-            abort($statusCode);
+        $this->handleApiErrors('start', $id, 200);
 
         return redirect()->back();
     }
 
     public function end($id) {
-        $res = parent::end($id);
-        $statusCode = $res->getStatusCode();
-        if (in_array($statusCode, [422, 404]))
-            abort($statusCode);
+        $this->handleApiErrors('end', $id, 200);
 
         return redirect()->back();
     }
