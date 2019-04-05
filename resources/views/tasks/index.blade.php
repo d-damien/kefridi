@@ -7,9 +7,9 @@
 
     <ul class="nav nav-tabs">
         <li class=""><a href="/tasks">@lang('All')</a></li>
-        <li class=""><a href="/tasks/list/todo">@lang('To do')</a></li>
-        <li class=""><a href="/tasks/list/ongoing">@lang('Ongoing')</a></li>
-        <li class=""><a href="/tasks/list/done">@lang('Done')</a></li>
+        <li class="bg-warning"><a href="/tasks/list/todo">@lang('To do')</a></li>
+        <li class="bg-info"><a href="/tasks/list/ongoing">@lang('Ongoing')</a></li>
+        <li class="bg-success"><a href="/tasks/list/done">@lang('Done')</a></li>
     </ul>
 
     @foreach ($tasks as $task)
