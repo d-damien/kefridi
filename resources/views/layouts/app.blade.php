@@ -46,6 +46,7 @@
                             <li><a href="{{ route('login') }}">@lang('Login')</a></li>
                             <li><a href="{{ route('register') }}">@lang('Register')</a></li>
                         @else
+                            <li><a href="/home" class="bg-success">{{ Auth::user()->name }}</a></li>
                             <li><a href="/tasks">@lang('Tasks')</a></li>
                             <li><a href="/account">@lang('Account')</a></li>
                             <li>
