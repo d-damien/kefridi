@@ -107,6 +107,11 @@ class TaskController extends ApiTaskController
      */
     public function destroy($id)
     {
-        //
+        $res = parent::destroy($id);
+        $statusCode = $res->getStatusCode();
+        if (in_array($statusCode, [422, 404]))
+            abort($statusCode);
+
+        return redirect('/tasks');
     }
 }

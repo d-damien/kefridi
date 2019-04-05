@@ -15,10 +15,17 @@
     @foreach ($tasks as $task)
         <div class="panel task-{{ $task->state->name }}">
             <div class="panel-heading">
-              <h3 class="panel-title">
                 <strong>{{ $task->title }}</strong>
                 <em>{{ $task->relevantDate() }}</em>
-              </h3>
+                <div class="pull-right">
+                    <a href="/tasks/{{ $task->id }}">@lang('Edit')</a>
+                    <!-- form & jeton permettent d'éviter les failles CSRF -->
+                    <form action="/tasks/{{ $task->id }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <input type="submit" class="btn" value="@lang('Delete')" />
+                    </form>
+                </div>
             </div>
 
             <div class="panel-body">

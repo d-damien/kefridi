@@ -127,7 +127,7 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return [];
+        return response([], 200);
     }
 
 
