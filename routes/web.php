@@ -23,4 +23,6 @@ Route::middleware('auth:web')->group(function() {
 
     Route::resource('tasks', 'TaskController');
     Route::get('/tasks/list/{action}', 'TaskController@index');
+    Route::patch('/tasks/{task}/start', 'TaskController@start');
+    Route::patch('/tasks/{task}/end', 'TaskController@end');
 });

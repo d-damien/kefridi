@@ -23,15 +23,30 @@
                     </a>
                 @endif
                 <em>{{ $task->relevantDate() }}</em>
+
                 <div class="pull-right">
+                    @if ($task->task_state_id == 1)
+                        @component('tasks.button', [
+                            'path' => '/tasks/'.$task->id.'/start',
+                            'method' => 'PATCH',
+                            'methodName' => 'Start'])
+                        @endcomponent
+                    @endif
+
+                    @if ($task->task_state_id == 2)
+                        @component('tasks.button', [
+                            'path' => '/tasks/'.$task->id.'/end',
+                            'method' => 'PATCH',
+                            'methodName' => 'End'])
+                        @endcomponent
+                    @endif
 
                     @if ($task->task_state_id != 2)
-                        <!-- form & jeton permettent d'éviter les failles CSRF -->
-                        <form action="/tasks/{{ $task->id }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <input type="submit" class="btn" value="@lang('Delete')" />
-                        </form>
+                        @component('tasks.button', [
+                            'path' => '/tasks/'.$task->id,
+                            'method' => 'DELETE',
+                            'methodName' => 'Delete'])
+                        @endcomponent
                     @endif
                 </div>
             </div>

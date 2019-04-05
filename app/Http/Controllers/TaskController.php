@@ -119,4 +119,25 @@ class TaskController extends ApiTaskController
 
         return redirect('/tasks');
     }
+
+    public function start($id)
+    {
+        $res = parent::start($id);
+        $statusCode = $res->getStatusCode();
+        if (in_array($statusCode, [422, 404]))
+            abort($statusCode);
+
+        return redirect()->back();
+    }
+
+    public function end($id) {
+        $res = parent::end($id);
+        $statusCode = $res->getStatusCode();
+        if (in_array($statusCode, [422, 404]))
+            abort($statusCode);
+
+        return redirect()->back();
+    }
+
+
 }

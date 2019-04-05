@@ -148,6 +148,8 @@ class TaskController extends Controller
         $task->task_state_id = 2;
         $task->started_at = time();
         $task->save();
+
+        return response()->json([], 200);
     }
 
     public function end($id) {
@@ -161,6 +163,8 @@ class TaskController extends Controller
         $task->task_state_id = 3;
         $task->ended_at = time();
         $task->save();
+
+        return response()->json([], 200);
     }
 
 }
