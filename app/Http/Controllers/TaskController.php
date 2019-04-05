@@ -32,7 +32,12 @@ class TaskController extends ApiTaskController
      */
     public function create()
     {
-        return view('tasks.create');
+        $editing = false;
+        $task = new Task;
+
+        return response()->view(
+            'tasks.create',
+            compact('editing', 'task'));
     }
 
     /**
